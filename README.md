@@ -9,6 +9,13 @@ Suitable for use with Buffer objects with a length greater than about 5KB.
 When compared with Base64 encoding/decoding via Node's Buffer object,
 expected peformance gains are in the 3x-6x range.
 
+## Requirements
+
+* x64 CPU
+* gcc v4.7+
+* Node.js v4+
+* [node-gyp](https://github.com/nodejs/node-gyp#installation) and its dependencies
+
 ## Install
 
 ```sh
