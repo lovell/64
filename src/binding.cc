@@ -29,7 +29,7 @@ NAN_METHOD(Encode) {
   char* out = static_cast<char*>(malloc(outAlloc));
   size_t outLen;
 
-  base64_encode(in, inLen, out, &outLen, BASE64_FORCE_AVX);
+  base64_encode(in, inLen, out, &outLen, 0);
 
   info
     .GetReturnValue()
@@ -47,7 +47,7 @@ NAN_METHOD(Decode) {
   char* out = static_cast<char*>(malloc(outAlloc));
   size_t outLen;
 
-  base64_decode(in, inLen, out, &outLen, BASE64_FORCE_AVX);
+  base64_decode(in, inLen, out, &outLen, 0);
 
   info
     .GetReturnValue()
