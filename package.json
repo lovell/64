@@ -1,6 +1,6 @@
 {
   "name": "64",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "High performance Base64 encoding and decoding for Node.js using SIMD acceleration",
   "author": "Lovell Fuller <npm@lovell.info>",
   "homepage": "https://github.com/lovell/64",
