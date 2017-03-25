@@ -1,7 +1,7 @@
 'use strict';
 
-const assert = require('assert');
 const crypto = require('crypto');
+const ava = require('ava');
 
 const base64 = require('../');
 
@@ -19,20 +19,24 @@ const tests = {
 
 Object
   .keys(tests)
-  .forEach(function (test) {
-    const input = Buffer.from(test);
-    const expected = Buffer.from(tests[test]);
+  .forEach(test =>
+    ava(test, t => {
+      t.plan(2);
 
+      const encoded = base64.encode(Buffer.from(test));
+      t.is(encoded.toString(), tests[test]);
+
+      const decoded = base64.decode(encoded);
+      t.is(decoded.toString(), test);
+    })
+  );
+
+for (let length = 1; length < 10000; length++) {
+  ava(`roundtrip encode/decode of ${length} bytes`, t => {
+    t.plan(1);
+    const input = crypto.randomBytes(length);
     const encoded = base64.encode(input);
-    assert.strictEqual(true, expected.equals(encoded));
-
     const decoded = base64.decode(encoded);
-    assert.strictEqual(true, input.equals(decoded));
+    t.true(input.equals(decoded));
   });
-
-for (let i = 1; i < 10000; i++) {
-  const input = crypto.randomBytes(i);
-  const encoded = base64.encode(input);
-  const decoded = base64.decode(encoded);
-  assert.strictEqual(true, input.equals(decoded));
 }
