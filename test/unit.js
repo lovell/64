@@ -5,6 +5,12 @@ const ava = require('ava');
 
 const base64 = require('../');
 
+['avx2', 'neon32', 'neon64', 'plain', 'ssse3', 'sse41', 'sse42', 'avx']
+  .forEach(function (flag) {
+    const isSupported = base64.encode(Buffer.from('test'), base64.flags[flag]).length !== 0;
+    console.log(`${flag} is ${isSupported ? '' : 'un'}supported`);
+  });
+
 const tests = {
   '': '',
   f: 'Zg==',
@@ -19,8 +25,8 @@ const tests = {
 
 Object
   .keys(tests)
-  .forEach(test =>
-    ava(test, t => {
+  .forEach(function (test) {
+    ava(`Roundtrip encode/decode of '${test}'`, function (t) {
       t.plan(2);
 
       const encoded = base64.encode(Buffer.from(test));
@@ -28,15 +34,29 @@ Object
 
       const decoded = base64.decode(encoded);
       t.is(decoded.toString(), test);
-    })
-  );
-
-for (let length = 1; length < 10000; length++) {
-  ava(`roundtrip encode/decode of ${length} bytes`, t => {
-    t.plan(1);
-    const input = crypto.randomBytes(length);
-    const encoded = base64.encode(input);
-    const decoded = base64.decode(encoded);
-    t.true(input.equals(decoded));
+    });
   });
-}
+
+[1, 10, 100, 1000, 10000, 100000]
+  .forEach(function (length) {
+    ava(`Roundtrip encode/decode of ${length} random bytes`, function (t) {
+      t.plan(1);
+      const input = crypto.randomBytes(length);
+      const encoded = base64.encode(input);
+      const decoded = base64.decode(encoded);
+      t.true(input.equals(decoded));
+    });
+  });
+
+[null, '', 'test', 1, -0.3, {}, true]
+  .forEach(function (invalidInput) {
+    ava(`Invalid input ${JSON.stringify(invalidInput)} throws`, function (t) {
+      t.plan(2);
+      t.throws(function () {
+        base64.encode(invalidInput);
+      });
+      t.throws(function () {
+        base64.decode(invalidInput);
+      });
+    });
+  });
