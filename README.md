@@ -12,7 +12,7 @@ expected peformance gains are in the 3x-6x range.
 ## Requirements
 
 * x64 CPU
-* Linux (gcc v4.7+) or OS X
+* Linux (gcc v4.7+), OS X or Windows
 * Node.js v4+
 * [node-gyp](https://github.com/nodejs/node-gyp#installation) and its dependencies
 
