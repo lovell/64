@@ -22,7 +22,6 @@ NAN_METHOD(Encode) {
   Nan::HandleScope();
 
   v8::Local<v8::Object> buffer = info[0].As<v8::Object>();
-  int const flags = Nan::To<int>(info[1]).FromJust();
 
   char const* in = node::Buffer::Data(buffer);
   size_t inLen = node::Buffer::Length(buffer);
@@ -31,7 +30,7 @@ NAN_METHOD(Encode) {
   char* out = static_cast<char*>(malloc(outAlloc));
   size_t outLen;
 
-  base64_encode(in, inLen, out, &outLen, flags);
+  base64_encode(in, inLen, out, &outLen, 0);
 
   info
     .GetReturnValue()
@@ -42,7 +41,6 @@ NAN_METHOD(Decode) {
   Nan::HandleScope();
 
   v8::Local<v8::Object> buffer = info[0].As<v8::Object>();
-  int const flags = Nan::To<int>(info[1]).FromJust();
 
   char const* in = node::Buffer::Data(buffer);
   size_t inLen = node::Buffer::Length(buffer);
@@ -51,7 +49,7 @@ NAN_METHOD(Decode) {
   char* out = static_cast<char*>(malloc(outAlloc));
   size_t outLen;
 
-  base64_decode(in, inLen, out, &outLen, flags);
+  base64_decode(in, inLen, out, &outLen, 0);
 
   info
     .GetReturnValue()

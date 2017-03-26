@@ -35,23 +35,17 @@ const decoded = decode(encoded);
 
 ## API
 
-### encode(input, [flags])
+### encode(input)
 
 * `input` is a Buffer containing the data to be Base64 encoded.
-* `flags` is an optional Number to force use of a specific set of SIMD instructions, defaulting to best available at runtime.
 
 Returns a Buffer containing the Base64 encoded version of `input`.
 
-### decode(encoded, [flags])
+### decode(encoded)
 
 * `encoded` is a Buffer containing Base64 encoded data.
-* `flags` is an optional Number to force use of a specific set of SIMD instructions, defaulting to best available at runtime.
 
 Returns a Buffer containing the Base64 decoded version of `encoded`.
-
-### flags
-
-An Object containing identifiers for all possible SIMD instruction sets. Not all will be available at runtime.
 
 ## Performance
 

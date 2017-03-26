@@ -5,12 +5,6 @@ const ava = require('ava');
 
 const base64 = require('../');
 
-['avx2', 'neon32', 'neon64', 'plain', 'ssse3', 'sse41', 'sse42', 'avx']
-  .forEach(function (flag) {
-    const isSupported = base64.encode(Buffer.from('test'), base64.flags[flag]).length !== 0;
-    console.log(`${flag} is ${isSupported ? '' : 'un'}supported`);
-  });
-
 const tests = {
   '': '',
   f: 'Zg==',

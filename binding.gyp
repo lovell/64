@@ -41,6 +41,11 @@
       'cflags': ['-mavx2'],
       'xcode_settings': {
         'OTHER_CFLAGS': ['-mavx2']
+      },
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'AdditionalOptions': ['/arch:AVX2']
+        }
       }
     }, {
       'target_name': 'base64_avx',
@@ -49,6 +54,11 @@
       'cflags': ['-mavx'],
       'xcode_settings': {
         'OTHER_CFLAGS': ['-mavx']
+      },
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'AdditionalOptions': ['/arch:AVX']
+        }
       }
     }, {
       'target_name': 'base64_sse42',
