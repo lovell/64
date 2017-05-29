@@ -3,20 +3,13 @@ node_js:
   - "4"
   - "6"
   - "7"
-os:
-  - linux
-  - osx
-sudo: false
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.8
-osx_image: xcode8.2
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=g++-4.8 CC=gcc-4.8; fi
 matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: false
+    - os: osx
+      osx_image: xcode8.3
   allow_failures:
-  - os: osx
-    node_js: "4"
+    - os: osx
+      node_js: "4"
