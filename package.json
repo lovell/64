@@ -11,7 +11,11 @@
     "url": "git://github.com/lovell/64"
   },
   "scripts": {
-    "test": "semistandard && cc && ava && node test/bench"
+    "install": "prebuild-install || node-gyp rebuild",
+    "test": "semistandard && cc && ava && node test/bench && prebuild-ci"
+  },
+  "engines": {
+    "node": ">=4"
   },
   "keywords": [
     "base64",
@@ -20,12 +24,15 @@
     "encode"
   ],
   "dependencies": {
-    "nan": "^2.6.2"
+    "nan": "^2.6.2",
+    "prebuild-install": "^2.1.2"
   },
   "devDependencies": {
     "ava": "^0.19.1",
     "benchmark": "^2.1.4",
     "cc": "^1.0.1",
+    "prebuild": "^6.1.0",
+    "prebuild-ci": "^2.2.2",
     "semistandard": "^11.0.0"
   },
   "cc": {
