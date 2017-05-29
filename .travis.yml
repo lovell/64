@@ -1,15 +1,21 @@
 language: node_js
-node_js:
-  - "4"
-  - "6"
-  - "7"
 matrix:
   include:
     - os: linux
       dist: trusty
       sudo: false
+      node_js: "4"
+    - os: linux
+      dist: trusty
+      sudo: false
+      node_js: "6"
+    - os: linux
+      dist: trusty
+      sudo: false
+      node_js: "7"
     - os: osx
       osx_image: xcode8.3
-  allow_failures:
+      node_js: "6"
     - os: osx
-      node_js: "4"
+      osx_image: xcode8.3
+      node_js: "7"
