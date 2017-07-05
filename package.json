@@ -1,6 +1,6 @@
 {
   "name": "64",
-  "version": "0.1.0",
+  "version": "0.1.1-alpha",
   "description": "High performance Base64 encoding and decoding for Node.js using SIMD acceleration",
   "author": "Lovell Fuller <npm@lovell.info>",
   "homepage": "https://github.com/lovell/64",
@@ -11,8 +11,8 @@
     "url": "git://github.com/lovell/64"
   },
   "scripts": {
-    "install": "prebuild-install || node-gyp rebuild",
-    "test": "semistandard && cc && ava && node test/bench && prebuild-ci"
+    "install": "detect-libc prebuild-install || node-gyp rebuild",
+    "test": "semistandard && cc && ava && node test/bench && detect-libc prebuild-ci"
   },
   "engines": {
     "node": ">=4"
@@ -24,15 +24,16 @@
     "encode"
   ],
   "dependencies": {
+    "detect-libc": "^0.0.8",
     "nan": "^2.6.2",
-    "prebuild-install": "^2.1.2"
+    "prebuild-install": "^2.2.0"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
+    "ava": "^0.20.0",
     "benchmark": "^2.1.4",
     "cc": "^1.0.1",
-    "prebuild": "^6.1.0",
-    "prebuild-ci": "^2.2.2",
+    "prebuild": "^6.2.1",
+    "prebuild-ci": "^2.2.3",
     "semistandard": "^11.0.0"
   },
   "cc": {
