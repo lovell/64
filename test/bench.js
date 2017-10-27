@@ -5,7 +5,7 @@ const benchmark = require('benchmark');
 
 const base64 = require('../');
 
-[10000, 100000, 1000000, 10000000]
+[100, 200, 500, 1000, 2000, 5000, 10000, 100000, 1000000, 10000000]
   .forEach(function (length) {
     const plain = crypto.randomBytes(length);
     (new benchmark.Suite())

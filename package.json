@@ -24,15 +24,15 @@
     "encode"
   ],
   "dependencies": {
-    "detect-libc": "^0.2.0",
+    "detect-libc": "^1.0.0",
     "nan": "^2.7.0",
     "prebuild-install": "^2.3.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "benchmark": "^2.1.4",
     "cc": "^1.0.1",
-    "prebuild": "^6.2.1",
+    "prebuild": "^6.2.2",
     "prebuild-ci": "^2.2.3",
     "semistandard": "^11.0.0"
   },
