@@ -7,6 +7,11 @@ Uses Alfred Klomp's [base64](https://github.com/aklomp/base64) library.
 When compared with Base64 encoding/decoding via Node's Buffer object,
 expected peformance gains are up to ~6x depending on length.
 
+Due to the cost of making a shared library call,
+it is less suitable for very short Buffers,
+typically those less than ~300 bytes when encoding
+and less than ~150 bytes when decoding.
+
 Pre-compiled binaries are provided for the most common platforms.
 
 ## Requirements
@@ -53,27 +58,10 @@ A TypeError will be thrown if `encoded` is not a Buffer.
 ## Performance
 
 * [Intel i3-4170](http://ark.intel.com/products/77490/Intel-Core-i3-4170-Processor-3M-Cache-3_70-GHz)
-* Ubuntu 16.04.1 LTS
-* Node.js v6.10.0
+* Ubuntu 16.04.3 LTS
+* Node.js v8.1.3
 
-| Length | Method | Module | Ops/sec |
-| -----: | :----- | :----- | ------: |
-|   10KB | encode | Buffer | 122,312 |
-|        |        | 64     | 321,902 |
-|        | decode | Buffer |  63,551 |
-|        |        | 64     | 272,640 |
-|  100KB | encode | Buffer |  12,145 |
-|        |        | 64     |  47,148 |
-|        | decode | Buffer |   6,504 |
-|        |        | 64     |  37,170 |
-|    1MB | encode | Buffer |   1,315 |
-|        |        | 64     |   4,983 |
-|        | decode | Buffer |     599 |
-|        |        | 64     |   3,876 |
-|   10MB | encode | Buffer |     133 |
-|        |        | 64     |     437 |
-|        | decode | Buffer |      54 |
-|        |        | 64     |     362 |
+![](https://raw.githubusercontent.com/lovell/64/master/test/bench.png)
 
 ## Licence
 
