@@ -4,10 +4,8 @@ High performance Base64 encoding and decoding for Node.js
 using SIMD (AVX2, AVX, SSE4.2, SSE4.1, SSSE3) acceleration.
 Uses Alfred Klomp's [base64](https://github.com/aklomp/base64) library.
 
-Suitable for use with Buffer objects with a length greater than about 5KB.
-
 When compared with Base64 encoding/decoding via Node's Buffer object,
-expected peformance gains are in the 3x-6x range.
+expected peformance gains are up to ~6x depending on length.
 
 Pre-compiled binaries are provided for the most common platforms.
 
@@ -42,11 +40,15 @@ const decoded = decode(encoded);
 
 Returns a Buffer containing the Base64 encoded version of `input`.
 
+A TypeError will be thrown if `input` is not a Buffer.
+
 ### decode(encoded)
 
 * `encoded` is a Buffer containing Base64 encoded data.
 
 Returns a Buffer containing the Base64 decoded version of `encoded`.
+
+A TypeError will be thrown if `encoded` is not a Buffer.
 
 ## Performance
 

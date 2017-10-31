@@ -22,38 +22,44 @@ NAN_METHOD(Encode) {
   Nan::HandleScope();
 
   v8::Local<v8::Object> buffer = info[0].As<v8::Object>();
+  if (node::Buffer::HasInstance(buffer)) {
+    char const* in = node::Buffer::Data(buffer);
+    size_t inLen = node::Buffer::Length(buffer);
 
-  char const* in = node::Buffer::Data(buffer);
-  size_t inLen = node::Buffer::Length(buffer);
+    size_t const outAlloc = 4 + inLen * 4 / 3;
+    char* out = static_cast<char*>(malloc(outAlloc));
+    size_t outLen;
 
-  size_t const outAlloc = 4 + inLen * 4 / 3;
-  char* out = static_cast<char*>(malloc(outAlloc));
-  size_t outLen;
+    base64_encode(in, inLen, out, &outLen, 0);
 
-  base64_encode(in, inLen, out, &outLen, 0);
-
-  info
-    .GetReturnValue()
-    .Set(Nan::NewBuffer(out, outLen).ToLocalChecked());
+    info
+      .GetReturnValue()
+      .Set(Nan::NewBuffer(out, outLen).ToLocalChecked());
+  } else {
+    Nan::ThrowTypeError("Expected Buffer");
+  }
 }
 
 NAN_METHOD(Decode) {
   Nan::HandleScope();
 
   v8::Local<v8::Object> buffer = info[0].As<v8::Object>();
+  if (node::Buffer::HasInstance(buffer)) {
+    char const* in = node::Buffer::Data(buffer);
+    size_t inLen = node::Buffer::Length(buffer);
 
-  char const* in = node::Buffer::Data(buffer);
-  size_t inLen = node::Buffer::Length(buffer);
+    size_t const outAlloc = 1 + inLen * 3 / 4;
+    char* out = static_cast<char*>(malloc(outAlloc));
+    size_t outLen;
 
-  size_t const outAlloc = 1 + inLen * 3 / 4;
-  char* out = static_cast<char*>(malloc(outAlloc));
-  size_t outLen;
+    base64_decode(in, inLen, out, &outLen, 0);
 
-  base64_decode(in, inLen, out, &outLen, 0);
-
-  info
-    .GetReturnValue()
-    .Set(Nan::NewBuffer(out, outLen).ToLocalChecked());
+    info
+      .GetReturnValue()
+      .Set(Nan::NewBuffer(out, outLen).ToLocalChecked());
+  } else {
+    Nan::ThrowTypeError("Expected Buffer");
+  }
 }
 
 NAN_MODULE_INIT(init) {

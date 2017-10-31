@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Buffer length', 'Buffer encode', 'Buffer decode', '64 encode', '64 decode'],
+        [ 64, 2370672, 1970951, 2100466, 1768068 ],
+        [ 128, 1958117, 1599398, 1747465, 1535140 ],
+        [ 256, 1555735, 1235564, 1447368, 1507069 ],
+        [ 512, 1079866, 824684, 1340296, 1379426 ],
+        [ 1024, 649180, 516072, 947553, 1020546 ],
+        [ 2048, 358143, 286229, 712155, 767402 ],
+        [ 4096, 190775, 122761, 504644, 575876 ],
+        [ 8192, 108805, 66999, 328327, 373135 ],
+        [ 16384, 55547, 33742, 197495, 238456 ],
+        [ 32768, 29154, 17391, 104996, 134303 ],
+        [ 65536, 14780, 8744, 53088, 68060 ],
+        [ 131072, 7369, 4180, 26278, 33400 ]
+      ]);
+
+      var options = {
+        title: 'Base64 encoding and decoding operations per second',
+        width: 900,
+        height: 500,
+        curveType: 'function',
+        hAxis: {
+          title: 'Buffer length in bytes (log scale)',
+          logScale: true
+        },
+        vAxis: {
+          title: 'Operations per second'
+        },
+        legend: {
+          position: 'bottom'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('bench'));
+      chart.draw(data, options);
+    }
+    </script>
+  </head>
+  <body>
+    <div id="bench"></div>
+  </body>
+</html>

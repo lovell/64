@@ -24,7 +24,7 @@
     "encode"
   ],
   "dependencies": {
-    "detect-libc": "^1.0.0",
+    "detect-libc": "^1.0.1",
     "nan": "^2.7.0",
     "prebuild-install": "^2.3.0"
   },

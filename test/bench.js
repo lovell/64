@@ -5,38 +5,53 @@ const benchmark = require('benchmark');
 
 const base64 = require('../');
 
-[100, 200, 500, 1000, 2000, 5000, 10000, 100000, 1000000, 10000000]
-  .forEach(function (length) {
-    const plain = crypto.randomBytes(length);
-    (new benchmark.Suite())
-      .add('Buffer', function () {
-        plain.toString('base64');
-      })
-      .add('64', function () {
-        base64.encode(plain);
-      })
-      .on('cycle', function (event) {
-        console.log(event.target.toString());
-      })
-      .on('complete', function () {
-        console.log(`Fastest encoder for ${length} bytes is ${this.filter('fastest').map('name')}`);
-      })
-      .run();
+const mapTestNameToResultsColumn = {
+  'Buffer encode': 1,
+  'Buffer decode': 2,
+  '64 encode': 3,
+  '64 decode': 4
+};
 
-    const encoded = base64.encode(plain);
-    const encodedString = encoded.toString();
-    (new benchmark.Suite())
-      .add('Buffer', function () {
-        Buffer.from(encodedString, 'base64');
-      })
-      .add('64', function () {
-        base64.decode(encoded);
-      })
-      .on('cycle', function (event) {
-        console.log(event.target.toString());
-      })
-      .on('complete', function () {
-        console.log(`Fastest decoder for ${length} bytes is ${this.filter('fastest').map('name')}`);
-      })
-      .run();
+const powersOfTwo = Array(12)
+  .fill()
+  .map(function (_, i) {
+    return Math.pow(2, i + 6);
   });
+
+const results = Array(powersOfTwo.length);
+
+powersOfTwo.forEach(function (length, i) {
+  results[i] = Array(5);
+  results[i][0] = length;
+
+  const plain = crypto.randomBytes(length);
+  const encoded = base64.encode(plain);
+
+  (new benchmark.Suite())
+    .add('Buffer encode', function () {
+      Buffer.from(plain.toString('base64'), 'ascii');
+    })
+    .add('64 encode', function () {
+      base64.encode(plain);
+    })
+    .on('cycle', function (event) {
+      console.log(event.target.toString());
+      results[i][mapTestNameToResultsColumn[event.target.name]] = Math.floor(event.target.hz);
+    })
+    .run();
+
+  (new benchmark.Suite())
+    .add('Buffer decode', function () {
+      Buffer.from(encoded.toString('ascii'), 'base64');
+    })
+    .add('64 decode', function () {
+      base64.decode(encoded);
+    })
+    .on('cycle', function (event) {
+      console.log(event.target.toString());
+      results[i][mapTestNameToResultsColumn[event.target.name]] = Math.floor(event.target.hz);
+    })
+    .run();
+});
+
+console.log(results);

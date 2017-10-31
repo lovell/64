@@ -31,7 +31,7 @@ Object
     });
   });
 
-[1, 10, 100, 1000, 10000, 100000]
+[2, 20, 200, 2000, 20000, 200000]
   .forEach(function (length) {
     ava(`Roundtrip encode/decode of ${length} random bytes`, function (t) {
       t.plan(1);
