@@ -15,7 +15,7 @@
     "test": "semistandard && cc && ava && node test/bench && prebuild-ci"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "keywords": [
     "base64",

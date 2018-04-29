@@ -5,18 +5,18 @@ using SIMD (AVX2, AVX, SSE4.2, SSE4.1, SSSE3) acceleration.
 Uses Alfred Klomp's [base64](https://github.com/aklomp/base64) library.
 
 When compared with Base64 encoding/decoding via Node's Buffer object,
-expected peformance gains are up to ~6x depending on length.
+expected performance gains are up to ~6x depending on length.
 
 Due to the cost of making a shared library call,
 it is less suitable for very short Buffers,
 typically those less than ~300 bytes when encoding
 and less than ~150 bytes when decoding.
 
-Pre-compiled binaries are provided for the most common platforms.
+Pre-compiled binaries are provided for Node 6, 8 and 10 on the most common platforms.
 
 ## Requirements
 
-* Node.js v4+
+* Node.js v6+
 * Linux, OS X or Windows
 * x86 or x64 CPU
 
@@ -65,7 +65,7 @@ A TypeError will be thrown if `encoded` is not a Buffer.
 
 ## Licence
 
-Copyright 2017 Lovell Fuller.
+Copyright 2017, 2018 Lovell Fuller.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
