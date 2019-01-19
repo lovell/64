@@ -42,6 +42,11 @@
       "src/lib"
     ]
   },
+  "semistandard": {
+    "ignore": [
+      "test/bench-results.js"
+    ]
+  },
   "ava": {
     "files": "test/unit.js"
   }

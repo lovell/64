@@ -2,29 +2,20 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="bench-results.js"></script>
     <script type="text/javascript">
     google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(function () {
+      // 'benchResults' defined in 'bench-results.js'
+      drawChart('encode', benchResults.encode);
+      drawChart('decode', benchResults.decode);
+    });
 
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        [ 'Buffer length', 'Buffer encode string', 'Buffer decode string', 'Buffer encode Buffer', 'Buffer decode Buffer', '64 encode', '64 decode' ],
-        [ 64, 0, 0, 2370672, 1970951, 2100466, 1768068 ],
-        [ 128, 0, 0, 1958117, 1599398, 1747465, 1535140 ],
-        [ 256, 0, 0, 1555735, 1235564, 1447368, 1507069 ],
-        [ 512, 0, 0, 1079866, 824684, 1340296, 1379426 ],
-        [ 1024, 0, 0, 649180, 516072, 947553, 1020546 ],
-        [ 2048, 0, 0, 358143, 286229, 712155, 767402 ],
-        [ 4096, 0, 0, 190775, 122761, 504644, 575876 ],
-        [ 8192, 0, 0, 108805, 66999, 328327, 373135 ],
-        [ 16384, 0, 0, 55547, 33742, 197495, 238456 ],
-        [ 32768, 0, 0, 29154, 17391, 104996, 134303 ],
-        [ 65536, 0, 0, 14780, 8744, 53088, 68060 ],
-        [ 131072, 0, 0, 7369, 4180, 26278, 33400 ]
-      ]);
+    function drawChart(variant, dataArray) {
+      var dataTable = google.visualization.arrayToDataTable(dataArray);
 
       var options = {
-        title: 'Base64 encoding and decoding operations per second',
+        title: 'Base64 ' + variant + ', operations per second',
         width: 900,
         height: 500,
         curveType: 'function',
@@ -40,12 +31,13 @@
         }
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('bench'));
-      chart.draw(data, options);
+      var chart = new google.visualization.LineChart(document.getElementById(variant + '-chart'));
+      chart.draw(dataTable, options);
     }
     </script>
   </head>
   <body>
-    <div id="bench"></div>
+    <div id="encode-chart"></div>
+    <div id="decode-chart"></div>
   </body>
 </html>
