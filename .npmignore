@@ -1,7 +1,0 @@
-.gitattributes
-.prebuildrc
-.travis.yml
-appveyor.yml
-build
-node_modules
-test

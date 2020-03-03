@@ -17,6 +17,10 @@
   "engines": {
     "node": ">=10"
   },
+  "files": [
+    "binding.gyp",
+    "src/**"
+  ],
   "keywords": [
     "base64",
     "simd",
