@@ -9,6 +9,7 @@
     'cflags_cc': [
       '-fexceptions',
       '-Wall',
+      '-Wno-cast-function-type',
       '-O3'
     ],
     'xcode_settings': {
