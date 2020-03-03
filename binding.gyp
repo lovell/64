@@ -112,6 +112,7 @@
       'sources': [
         'src/lib/lib.c',
         'src/lib/codec_choose.c',
+        'src/lib/tables/tables.c',
         'src/binding.cc'
       ],
       'include_dirs': ['<!(node -e "require(\'nan\')")'],
