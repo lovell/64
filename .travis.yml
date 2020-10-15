@@ -9,34 +9,34 @@ jobs:
       os: linux
       dist: xenial
       node_js: "12"
-    - name: "Linux - Node.js 13"
+    - name: "Linux - Node.js 14"
       os: linux
       dist: xenial
-      node_js: "13"
-    - name: "Linux (musl 1.1.20+) - Node.js 10"
+      node_js: "14"
+    - name: "Linux (musl 1.1.24+) - Node.js 10"
       os: linux
       dist: bionic
       language: shell
       before_install:
-        - sudo docker run -dit --name 64 --env CI --env PREBUILD_TOKEN --volume "${PWD}:/mnt/64" --workdir /mnt/64 node:10.17.0-alpine3.9 # https://github.com/nodejs/docker-node/issues/1158
+        - sudo docker run -dit --name 64 --env CI --env PREBUILD_TOKEN --volume "${PWD}:/mnt/64" --workdir /mnt/64 node:10-alpine3.11
         - sudo docker exec 64 apk add build-base git python2 --update-cache
       install: sudo docker exec 64 sh -c "npm install --unsafe-perm"
       script: sudo docker exec 64 sh -c "npm test"
-    - name: "Linux (musl 1.1.20+) - Node.js 12"
+    - name: "Linux (musl 1.1.24+) - Node.js 12"
       os: linux
       dist: bionic
       language: shell
       before_install:
-        - sudo docker run -dit --name 64 --env CI --env PREBUILD_TOKEN --volume "${PWD}:/mnt/64" --workdir /mnt/64 node:12.0-alpine
+        - sudo docker run -dit --name 64 --env CI --env PREBUILD_TOKEN --volume "${PWD}:/mnt/64" --workdir /mnt/64 node:12-alpine3.11
         - sudo docker exec 64 apk add build-base git python2 --update-cache
       install: sudo docker exec 64 sh -c "npm install --unsafe-perm"
       script: sudo docker exec 64 sh -c "npm test"
-    - name: "Linux (musl 1.1.20+) - Node.js 13"
+    - name: "Linux (musl 1.1.24+) - Node.js 14"
       os: linux
       dist: bionic
       language: shell
       before_install:
-        - sudo docker run -dit --name 64 --env CI --env PREBUILD_TOKEN --volume "${PWD}:/mnt/64" --workdir /mnt/64 node:13.0-alpine
+        - sudo docker run -dit --name 64 --env CI --env PREBUILD_TOKEN --volume "${PWD}:/mnt/64" --workdir /mnt/64 node:14-alpine3.11
         - sudo docker exec 64 apk add build-base git python2 --update-cache
       install: sudo docker exec 64 sh -c "npm install --unsafe-perm"
       script: sudo docker exec 64 sh -c "npm test"
@@ -48,7 +48,7 @@ jobs:
       os: osx
       osx_image: xcode10.1
       node_js: "12"
-    - name: "macOS - Node.js 13"
+    - name: "macOS - Node.js 14"
       os: osx
       osx_image: xcode10.1
-      node_js: "13"
+      node_js: "14"
